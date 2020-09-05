@@ -1,4 +1,5 @@
 
+from __future__ import print_function
 import sys, os
 import getpass
 import subprocess
@@ -45,7 +46,7 @@ if __name__ == '__main__':
 		while os.path.exists(install_dir) and len(os.listdir(install_dir)) != 0:
 			install_dir = raw_input('Directory is not empty please specify another path : ');
 		
-		print
+		print('')
 		
 		launcher_file = os.path.join(install_dir, 'launcher.sh')
 		
