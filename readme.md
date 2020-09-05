@@ -43,3 +43,8 @@ How to use
 
 1. You can view the live stream at `http://your-ip/`
 2. You can view and delete videos of intruders at `http://your-ip/videos/`
+
+![Wiring](images/stream.jpg)
+![Wiring](images/motion.jpg)
+![Wiring](images/videos.jpg)
+
