@@ -45,7 +45,9 @@ if __name__ == '__main__':
 		while os.path.exists(install_dir) and len(os.listdir(install_dir)) != 0:
 			install_dir = raw_input('Directory is not empty please specify another path : ');
 		
-		print('')
+		print
+		
+		launcher_file = os.path.join(install_dir, 'launcher.sh')
 		
 		settings_file = os.path.join(install_dir, 'settings.py')
 
@@ -69,7 +71,6 @@ if __name__ == '__main__':
 		
 		print('+ Copying files to ' + install_dir + '...')
 		copy_tree('app', install_dir)
-		launcher_file = os.path.join(install_dir, 'launcher.sh')
 		with open(launcher_file, "r+") as file:
 			data = file.read()
 			data = data.replace('INSTALL_DIR', install_dir)
@@ -81,6 +82,8 @@ if __name__ == '__main__':
 		
 		print('+ Changing permissions of ' + install_dir + '...')
 		cmd = 'sudo chown ' + user + ':' + user + ' -R ' + install_dir
+		exec_command(cmd)
+		cmd = 'sudo chmod +x ' + launcher_file
 		exec_command(cmd)
 		print('')
 		
