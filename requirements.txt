@@ -1,0 +1,4 @@
+requests==2.21.0
+Flask==1.0.2
+pyserial==3.4
+python_crontab==2.5.1

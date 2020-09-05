@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="row">
+		{% for video in videos %}
+			<div class="col-auto mb-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<div>
+								<h5 class="card-title">{{ video.date }}</h5>
+							</div>
+							<div>
+								<a href="/videos/delete/{{video.file}}" class="video-delete"><i class="fas fa-trash"></i></a>
+							</div>
+						</div>
+						<video width="100%" controls>
+							<source src="/videos/{{video.file}}" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<script>
+		$(".video-delete").click(function()
+		{
+			var href = $(this).attr("href");
+			event.preventDefault();
+			bootbox.confirm("Are you sure ?", function(callback)
+			{
+				if(callback)
+				{
+					window.location.href = href;
+				}
+			});
+		});
+	</script>
+{% endblock %}
+

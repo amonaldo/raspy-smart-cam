@@ -1,0 +1,102 @@
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<title>{% block title %} Raspberry Smart Cam {% endblock %} </title>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">		
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/style.css">
+		<script src="/static/js/jquery.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/bootbox.min.js"></script>
+		<script>
+			function state_listener()
+			{
+				$.ajax(
+				{
+					url: '/motion/status',
+					method: 'get',
+					success: function(data)
+					{
+						var text = $(data).text();
+						console.log(text);
+						if (text.indexOf("ACTIVE") >= 0)
+						{
+							$('.switch').find('input:checkbox').prop('checked', true);
+						}
+						else if (text.indexOf("PAUSE") >= 0)
+						{
+							$('.switch').find('input:checkbox').prop('checked', false);
+						}			
+					}
+				});
+			}
+			$(document).ready(function()
+			{
+				$(".switch").click(function()
+				{
+					if ($(this).find('input:checkbox').prop('checked'))
+					{
+						$.ajax(
+						{
+							url: '/motion/start',
+							method: 'get'
+						});						
+					}
+					else
+					{
+						$.ajax(
+						{
+							url: '/motion/pause',
+							method: 'get'
+						});						
+					}
+				});
+				state_listener();
+			});
+		</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="/"><b>Raspberry Smart Camera</b></a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a href="/videos/" class="nav-link">Videos</a>
+				</li>
+			</ul>
+		  </div>
+		</nav>
+		<div class="container">
+			<div class="row pt-3">
+				<div class="col-4"></div>
+				<div class="col-4">
+					<table>
+						<tr>
+							<td><b>Motion Detection</b></td>
+							<td>
+								<label class="switch">
+									<input type="checkbox" value="">
+									<span class="slider round"></span>
+								</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row pt-3">
+				<div class="col-md-12">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+
