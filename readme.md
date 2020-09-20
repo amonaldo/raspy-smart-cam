@@ -29,7 +29,7 @@ How to install
 
 1. Enable the camera module and the serial port using `raspi-config`
 2. Install requirements using `sudo pip install -r requirements.txt`
-3. Run `install.sh` and specify where to install the project
+3. Run `sudo python install.py` and specify where to install the project
 4. After installation is done navigate to the directory where the project was installed and change the following settings in `settings.py` : 
 	- PIN number of the SIM card
 	- Phone number to call when motion is detected
