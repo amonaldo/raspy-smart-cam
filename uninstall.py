@@ -60,22 +60,21 @@ if __name__ == '__main__':
 		
 		launcher_file = os.path.join(install_dir, 'launcher.sh')
 				
-		launcher_log = os.path.join(install_dir, 'launcher.log')
-
 		print('+ Removing program path...')
 		shutil.rmtree(install_dir)
 		print('')
 		
 		print('+ Removing motion...')
-		exec_command('sudo apt-get remove --purge motion')
-		exec_command('sudo apt-get autoremove --purge')
+		try:
+			os.remove('/etc/motion/motion.conf')
+		except:
+			pass
 		print('')
 		
 		print('+ Removing job from crontab...')
 		cron = CronTab(user=user)
-		command = launcher_file + ' >> ' + launcher_log + ' 2>&1'
 		for job in cron:
-			if job.command == command:
+			if job.command == launcher_file:
 				cron.remove(job)
 				cron.write()		
 		print('')

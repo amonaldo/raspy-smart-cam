@@ -100,9 +100,7 @@ if __name__ == '__main__':
 		
 		print('+ Updating crontab...')
 		cron = CronTab(user=user)
-		launcher_log = os.path.join(install_dir, 'launcher.log')
-		command = launcher_file + ' >> ' + launcher_log + ' 2>&1'
-		job = cron.new(command=command)
+		job = cron.new(command=launcher_file)
 		job.every_reboot()
 		cron.write()
 		print('')
