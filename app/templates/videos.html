@@ -12,7 +12,8 @@
 								<h5 class="card-title">{{ video.date }}</h5>
 							</div>
 							<div>
-								<a href="/videos/delete/{{video.file}}" class="video-delete"><i class="fas fa-trash"></i></a>
+								<!-- <a href="/videos/delete/{{video.file}}" class="video-delete"><i class="fas fa-trash"></i></a> -->
+								<input type="checkbox" data-file="{{video.file}}">
 							</div>
 						</div>
 						<video width="100%" controls preload="none">
@@ -24,7 +25,13 @@
 			</div>
 		{% endfor %}
 	</div>
+	<div class="row pt-4">
+		<div class="col-md-12">
+			<a id="delete" href="#"><b><i class="fas fa-trash"></i> Delete selected videos</b></a>
+		</div>
+	</div>	
 	<script>
+		/*
 		$(".video-delete").click(function()
 		{
 			var href = $(this).attr("href");
@@ -37,6 +44,31 @@
 				}
 			});
 		});
+		*/
+		$("#delete").click(function()
+		{
+			event.preventDefault();
+			if($("input:checked").length != 0)
+			{
+				if(confirm("Confirm delete ?"))
+				{
+					$('input:checked').each(function()
+					{
+						$.ajax(
+						{
+							url:"/videos/delete/" + $(this).data("file"),
+							method: 'get',
+							async: false
+						});
+					});
+					location.reload();
+				}
+			}
+			else
+			{
+				alert("There are no videos to delete");
+			}
+		});		
 	</script>
 {% endblock %}
 
