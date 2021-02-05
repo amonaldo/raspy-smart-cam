@@ -14,7 +14,10 @@ def prompt(helper=''):
 	
 
 def is_raspberry():
-	return os.uname()[1] == 'raspberrypi'
+	try:
+		return os.uname()[1] == 'raspberrypi'
+	except:
+		return False
 	
 	
 def is_root():
