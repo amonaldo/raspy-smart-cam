@@ -13,7 +13,7 @@
 							</div>
 							<div>
 								<!-- <a href="/videos/delete/{{video.file}}" class="video-delete"><i class="fas fa-trash"></i></a> -->
-								<input type="checkbox" data-file="{{video.file}}">
+								<input type="checkbox" class="video" data-file="{{video.file}}">
 							</div>
 						</div>
 						<video width="100%" controls preload="none">
@@ -48,11 +48,11 @@
 		$("#delete").click(function()
 		{
 			event.preventDefault();
-			if($("input:checked").length != 0)
+			if($(".video:checked").length != 0)
 			{
 				if(confirm("Confirm delete ?"))
 				{
-					$('input:checked').each(function()
+					$('.video:checked').each(function()
 					{
 						$.ajax(
 						{
